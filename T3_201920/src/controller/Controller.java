@@ -3,8 +3,10 @@ package controller;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import model.data_structures.ArregloDinamico;
 import model.data_structures.Node;
 import model.logic.MVCModelo;
+import model.logic.UBERTrip;
 import view.MVCView;
 
 public class Controller {
@@ -39,7 +41,7 @@ public class Controller {
 
 			String in;
 			in = lector.next();
-			
+
 			int option;
 			try
 			{
@@ -53,47 +55,31 @@ public class Controller {
 			switch(option){
 			case 1:
 
-				int numeroTrimestre;
 				try
 				{
-					System.out.println("--------- \nCargar archivo \nDar numero del trimestre: ");
-					numeroTrimestre = lector.nextInt();
-				}
-				catch(InputMismatchException e)
-				{
-					System.out.println("Debe ingresar un valor numérico (1 o 2)\n---------");
-					break;
-				}
+					modelo.cargarArchivoCSV();
+					double[] datosPrimerViaje = modelo.darPrimerElemento().darDatosViaje();
+					double[] datosUltimoViaje = modelo.darUltimoElemento().darDatosViaje();
 
-				if(numeroTrimestre == 1 || numeroTrimestre == 2)
-				{
-					try
-					{
-						modelo.cargarArchivoCSV(numeroTrimestre);
-						System.out.println("Archivo cargado");
-						System.out.println("Numero actual de elementos " + modelo.darTamano() + "\n---------");
-					}
-					catch (Exception e)
-					{
-						System.out.println("Se ha producido un error al cargar el archivo\n---------");
-					}
+					
+					System.out.println("Archivo cargado");
+					System.out.println("Numero actual de elementos " + modelo.darTamano());
+					System.out.println("Datos primer viaje: \nId zona origen: " + datosPrimerViaje[0] + "\nId zona destino: " + datosPrimerViaje[1] + "\nHora: " + datosPrimerViaje[2] + "\nTiempo promedio: " + datosPrimerViaje[3] + "\n");
+					System.out.println("Datos último viaje: \nId zona origen: " + datosUltimoViaje[0] + "\nId zona destino: " + datosUltimoViaje[1] + "\nHora: " + datosUltimoViaje[2] + "\nTiempo promedio: " + datosUltimoViaje[3] + "\n---------");
 				}
-				else
+				catch (Exception e)
 				{
-					System.out.println("Ingrese un valor válido (1 o 2)\n---------");	
+					System.out.println("Se ha producido un error al cargar el archivo\n---------");
 				}
 				break;
 
 			case 2:
 
-				double mes;
-				double zonaOrigen;
+				double hora;
 				try
 				{
-					System.out.println("--------- \nDar mes a buscar: ");
-					mes = lector.nextInt();
-					System.out.println("--------- \nDar id zona de origen a buscar: ");
-					zonaOrigen = lector.nextInt();
+					System.out.println("--------- \nDar hora a buscar: ");
+					hora = lector.nextInt();
 				}
 				catch(InputMismatchException e)
 				{
@@ -101,19 +87,20 @@ public class Controller {
 					break;
 				}
 
-				Node lista = modelo.busquedaPorMesYZonaOrigen(mes, zonaOrigen);
-				if (lista == null)
+				ArregloDinamico<UBERTrip> lista = modelo.darViajesSegunHora(hora);
+				if (lista.darTamano() == 0)
 				{
 					System.out.println("No hay viajes registrados con las condiciones dadas.\n---------");
 				}
 				else
 				{
-					while(lista != null)
+					for (int i = 0; i < lista.darTamano(); i++)
 					{
-						Double[] datos = (Double[]) lista.darDato();
-						System.out.println("Id zona de origen: " + datos[0] + "\nId zona de destino: " + datos[1] + "\nTiempo promedio: " + datos[3] + "\nDesviación estandar: " + datos[4] + "\n---------");
-						lista = lista.darSiguente();
+						UBERTrip actual = lista.darElemento(i);
+						double[] datos = actual.darDatosViaje();
+						System.out.println("Id zona de origen: " + datos[0] + "\nId zona de destino: " + datos[1] + "\nTiempo promedio: " + datos[3] + "\nDesviación estándar: " + datos[4] + "\nTiempo promedio geométrico: " + datos[5] + "\nDesviación estándar geométrica: " + datos[6] + "\n---------");
 					}
+					System.out.println("Número de viajes: " + lista.darTamano() +  "\n---------");
 				}
 				break;
 
