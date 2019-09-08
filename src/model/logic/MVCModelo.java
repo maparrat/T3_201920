@@ -93,7 +93,7 @@ public class MVCModelo {
 	{	
 		boolean primeraLectura = true;
 
-		CSVReader reader = new CSVReader(new FileReader("data/prueba.csv"));
+		CSVReader reader = new CSVReader(new FileReader("data/bogota-cadastral-2018-2-All-HourlyAggregate.csv"));
 
 		for(String[] line: reader)
 		{
