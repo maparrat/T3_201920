@@ -38,6 +38,10 @@ public class MVCModelo {
 		return datos.darTamano();
 	}
 
+	/**
+	 * Retorna los viajes según la hora ingresada
+	 * @return los viajes según la hora ingresada
+	 */
 	public ArregloDinamico<UBERTrip> darDatosSegunHora()
 	{
 		return datosSegunHora;
@@ -89,7 +93,7 @@ public class MVCModelo {
 	{	
 		boolean primeraLectura = true;
 
-		CSVReader reader = new CSVReader(new FileReader("data/bogota-cadastral-2018-2-All-HourlyAggregate.csv"));
+		CSVReader reader = new CSVReader(new FileReader("data/prueba.csv"));
 
 		for(String[] line: reader)
 		{
@@ -145,9 +149,9 @@ public class MVCModelo {
 			{ // Insert a[i] among a[i-h], a[i-2*h], a[i-3*h]... .
 				for (int j = i; j >= h && x.darElemento(j).compareTo(x.darElemento(j-h)) < 0; j -= h)
 				{					
-					UBERTrip t = x.darElemento(i); 
-					x.cambiarElemento(x.darElemento(j), i);
-					x.cambiarElemento(t, j);
+					UBERTrip t = x.darElemento(j); 
+					x.cambiarElemento(x.darElemento(j-h), j);
+					x.cambiarElemento(t, j-h);
 				}
 			}
 			h = h/3;

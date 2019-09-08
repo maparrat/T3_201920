@@ -63,10 +63,9 @@ public class Controller {
 					double[] datosPrimerViaje = modelo.darPrimerElemento().darDatosViaje();
 					double[] datosUltimoViaje = modelo.darUltimoElemento().darDatosViaje();
 
-
 					System.out.println("Archivo cargado");
-					System.out.println("Total de viajes leídos del archivo: " + modelo.darTamano());
-					System.out.println("Datos primer viaje: \nId zona origen: " + datosPrimerViaje[0] + "\nId zona destino: " + datosPrimerViaje[1] + "\nHora: " + datosPrimerViaje[2] + "\nTiempo promedio: " + datosPrimerViaje[3] + "\n");
+					System.out.println("Total de viajes leídos del archivo: " + modelo.darTamano() + "\n---------");
+					System.out.println("Datos primer viaje: \nId zona origen: " + datosPrimerViaje[0] + "\nId zona destino: " + datosPrimerViaje[1] + "\nHora: " + datosPrimerViaje[2] + "\nTiempo promedio: " + datosPrimerViaje[3] + "\n---------");
 					System.out.println("Datos último viaje: \nId zona origen: " + datosUltimoViaje[0] + "\nId zona destino: " + datosUltimoViaje[1] + "\nHora: " + datosUltimoViaje[2] + "\nTiempo promedio: " + datosUltimoViaje[3] + "\n---------");
 				}
 				catch (Exception e)
@@ -89,6 +88,12 @@ public class Controller {
 					break;
 				}
 
+				if(hora < 0 || hora > 23)
+				{
+					System.out.println("Debe ingresar un valor válido.\n---------");
+					break;
+				}
+				
 				ArregloDinamico<UBERTrip> lista = modelo.darViajesSegunHora(hora);
 
 				if(lista.darTamano() == 0)
@@ -109,27 +114,37 @@ public class Controller {
 
 			case 3:
 
-				long duracionShellSort = modelo.ordenamientoAscendenteShellSort(modelo.darDatosSegunHora());
-				System.out.println("El tiempo que tomó el algoritmo realizando el ordenamiento fue de: " + duracionShellSort + " milisegundos\n---------");
-
 				if(modelo.darDatosSegunHora() == null)
 				{
-					System.out.println("Primero debe consultar los viajes segun una hora dada. (Opcion 3) \n---------");
+					System.out.println("---------\nPrimero debe consultar los viajes segun una hora dada. (Opcion 2) \n---------");
 					break;
-				}			
+				}
+				
+				if(modelo.darDatosSegunHora().darTamano() == 0)
+				{
+					System.out.println("---------\nNo hay datos registrados según la hora dada.\n---------");
+					break;
+				}
+				
+				long duracionShellSort = modelo.ordenamientoAscendenteShellSort(modelo.darDatosSegunHora());
+				System.out.println("El tiempo que tomó el algoritmo realizando el ordenamiento fue de: " + duracionShellSort + " milisegundos\n---------");		
 
 				primeros10Viajes = modelo.darDatosSegunHora().darPrimeros10Viajes();
 				ultimos10Viajes = modelo.darDatosSegunHora().darUltimos10Viajes();
-
+				
+				System.out.println("Información 10 primeros viajes:\n");
+				
 				for (int i = 0; i < primeros10Viajes.darTamano(); i++)
 				{
-					System.out.println("La información del viaje número " + i + " es: ");
+					System.out.println("La información del viaje número " + (i + 1) + " es:\n");
 					System.out.println("Id zona de origen: " + primeros10Viajes.darElemento(i).darDatosViaje()[0] + "\nId zona de destino: " + primeros10Viajes.darElemento(i).darDatosViaje()[1] + "\nHora: " + primeros10Viajes.darElemento(i).darDatosViaje()[2] + "\nTiempo promedio: " + primeros10Viajes.darElemento(i).darDatosViaje()[3] + "\nDesviación estándar: " + primeros10Viajes.darElemento(i).darDatosViaje()[4] + "\nTiempo promedio geométrico: " + primeros10Viajes.darElemento(i).darDatosViaje()[5] + "\nDesviación estándar geométrica: " + primeros10Viajes.darElemento(i).darDatosViaje()[6] + "\n---------");
 				}
-
+				
+				System.out.println("Información 10 últimos viajes:\n");
+				
 				for (int i = ultimos10Viajes.darTamano() - 1; i >= 0; i--)
 				{
-					System.out.println("La información del viaje número " + (modelo.darTamano() + i - 9) + " es: ");
+					System.out.println("La información del viaje número " + (modelo.darDatosSegunHora().darTamano() - i ) + " es:\n");
 					System.out.println("Id zona de origen: " + ultimos10Viajes.darElemento(i).darDatosViaje()[0] + "\nId zona de destino: " + ultimos10Viajes.darElemento(i).darDatosViaje()[1] + "\nHora: " + ultimos10Viajes.darElemento(i).darDatosViaje()[2] + "\nTiempo promedio: " + ultimos10Viajes.darElemento(i).darDatosViaje()[3] + "\nDesviación estándar: " + ultimos10Viajes.darElemento(i).darDatosViaje()[4] + "\nTiempo promedio geométrico: " + ultimos10Viajes.darElemento(i).darDatosViaje()[5] + "\nDesviación estándar geométrica: " + ultimos10Viajes.darElemento(i).darDatosViaje()[6] + "\n---------");
 				}
 
@@ -137,27 +152,37 @@ public class Controller {
 
 			case 4:
 				
+				if(modelo.darDatosSegunHora() == null)
+				{
+					System.out.println("---------\nPrimero debe consultar los viajes segun una hora dada. (Opcion 2) \n---------");
+					break;
+				}
+				
+				if(modelo.darDatosSegunHora().darTamano() == 0)
+				{
+					System.out.println("---------\nNo hay datos registrados según la hora dada.\n---------");
+					break;
+				}
+				
 				long duracionMergeSort = modelo.ordenamientoAscendenteMergeSort(modelo.darDatosSegunHora());
 				System.out.println("El tiempo que tomó el algoritmo realizando el ordenamiento fue de: " + duracionMergeSort + " milisegundos\n---------");
 
-				if(modelo.darDatosSegunHora() == null)
-				{
-					System.out.println("Primero debe consultar los viajes segun una hora dada. (Opcion 3) \n---------");
-					break;
-				}			
-
 				primeros10Viajes = modelo.darDatosSegunHora().darPrimeros10Viajes();
 				ultimos10Viajes = modelo.darDatosSegunHora().darUltimos10Viajes();
-
+				
+				System.out.println("Información 10 primeros viajes:\n");
+				
 				for (int i = 0; i < primeros10Viajes.darTamano(); i++)
 				{
-					System.out.println("La información del viaje número " + i + " es: ");
+					System.out.println("La información del viaje número " + (i + 1) + " es:\n");
 					System.out.println("Id zona de origen: " + primeros10Viajes.darElemento(i).darDatosViaje()[0] + "\nId zona de destino: " + primeros10Viajes.darElemento(i).darDatosViaje()[1] + "\nHora: " + primeros10Viajes.darElemento(i).darDatosViaje()[2] + "\nTiempo promedio: " + primeros10Viajes.darElemento(i).darDatosViaje()[3] + "\nDesviación estándar: " + primeros10Viajes.darElemento(i).darDatosViaje()[4] + "\nTiempo promedio geométrico: " + primeros10Viajes.darElemento(i).darDatosViaje()[5] + "\nDesviación estándar geométrica: " + primeros10Viajes.darElemento(i).darDatosViaje()[6] + "\n---------");
 				}
-
+				
+				System.out.println("Información 10 últimos viajes:\n");
+				
 				for (int i = ultimos10Viajes.darTamano() - 1; i >= 0; i--)
 				{
-					System.out.println("La información del viaje número " + (modelo.darTamano() + i - 9) + " es: ");
+					System.out.println("La información del viaje número " + (modelo.darDatosSegunHora().darTamano() - i ) + " es:\n");
 					System.out.println("Id zona de origen: " + ultimos10Viajes.darElemento(i).darDatosViaje()[0] + "\nId zona de destino: " + ultimos10Viajes.darElemento(i).darDatosViaje()[1] + "\nHora: " + ultimos10Viajes.darElemento(i).darDatosViaje()[2] + "\nTiempo promedio: " + ultimos10Viajes.darElemento(i).darDatosViaje()[3] + "\nDesviación estándar: " + ultimos10Viajes.darElemento(i).darDatosViaje()[4] + "\nTiempo promedio geométrico: " + ultimos10Viajes.darElemento(i).darDatosViaje()[5] + "\nDesviación estándar geométrica: " + ultimos10Viajes.darElemento(i).darDatosViaje()[6] + "\n---------");
 				}
 
@@ -165,27 +190,37 @@ public class Controller {
 
 			case 5:
 
+				if(modelo.darDatosSegunHora() == null)
+				{
+					System.out.println("---------\nPrimero debe consultar los viajes segun una hora dada. (Opcion 2) \n---------");
+					break;
+				}
+				
+				if(modelo.darDatosSegunHora().darTamano() == 0)
+				{
+					System.out.println("---------\nNo hay datos registrados según la hora dada.\n---------");
+					break;
+				}
+				
 				long duracionQuickSort = modelo.ordenamientoAscendenteMergeSort(modelo.darDatosSegunHora());
 				System.out.println("El tiempo que tomó el algoritmo realizando el ordenamiento fue de: " + duracionQuickSort + " milisegundos\n---------");
 
-				if(modelo.darDatosSegunHora() == null)
-				{
-					System.out.println("Primero debe consultar los viajes segun una hora dada. (Opcion 3) \n---------");
-					break;
-				}			
-
 				primeros10Viajes = modelo.darDatosSegunHora().darPrimeros10Viajes();
 				ultimos10Viajes = modelo.darDatosSegunHora().darUltimos10Viajes();
-
+				
+				System.out.println("Información 10 primeros viajes:\n");
+				
 				for (int i = 0; i < primeros10Viajes.darTamano(); i++)
 				{
-					System.out.println("La información del viaje número " + i + " es: ");
+					System.out.println("La información del viaje número " + (i + 1) + " es:\n");
 					System.out.println("Id zona de origen: " + primeros10Viajes.darElemento(i).darDatosViaje()[0] + "\nId zona de destino: " + primeros10Viajes.darElemento(i).darDatosViaje()[1] + "\nHora: " + primeros10Viajes.darElemento(i).darDatosViaje()[2] + "\nTiempo promedio: " + primeros10Viajes.darElemento(i).darDatosViaje()[3] + "\nDesviación estándar: " + primeros10Viajes.darElemento(i).darDatosViaje()[4] + "\nTiempo promedio geométrico: " + primeros10Viajes.darElemento(i).darDatosViaje()[5] + "\nDesviación estándar geométrica: " + primeros10Viajes.darElemento(i).darDatosViaje()[6] + "\n---------");
 				}
+				
+				System.out.println("Información 10 últimos viajes:\n");
 
 				for (int i = ultimos10Viajes.darTamano() - 1; i >= 0; i--)
 				{
-					System.out.println("La información del viaje número " + (modelo.darTamano() + i - 9) + " es: ");
+					System.out.println("La información del viaje número " + (modelo.darDatosSegunHora().darTamano() - i ) + " es:\n");
 					System.out.println("Id zona de origen: " + ultimos10Viajes.darElemento(i).darDatosViaje()[0] + "\nId zona de destino: " + ultimos10Viajes.darElemento(i).darDatosViaje()[1] + "\nHora: " + ultimos10Viajes.darElemento(i).darDatosViaje()[2] + "\nTiempo promedio: " + ultimos10Viajes.darElemento(i).darDatosViaje()[3] + "\nDesviación estándar: " + ultimos10Viajes.darElemento(i).darDatosViaje()[4] + "\nTiempo promedio geométrico: " + ultimos10Viajes.darElemento(i).darDatosViaje()[5] + "\nDesviación estándar geométrica: " + ultimos10Viajes.darElemento(i).darDatosViaje()[6] + "\n---------");
 				}
 

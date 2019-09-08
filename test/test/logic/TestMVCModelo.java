@@ -48,12 +48,7 @@ public class TestMVCModelo
 		modelo.ordenamientoAscendenteShellSort(ordenadoA);
 		modelo.ordenamientoAscendenteShellSort(ordenadoD);
 		modelo.ordenamientoAscendenteShellSort(desorden);
-		assertEquals( 1, ordenadoA.darElemento(0).darPrimerdato(), 0);
-		
-		System.out.println(ordenadoD.darElemento(0).darPrimerdato());
-		System.out.println(ordenadoD.darElemento(1).darPrimerdato());
-		System.out.println(ordenadoD.darElemento(2).darPrimerdato());
-		
+		assertEquals( 1, ordenadoA.darElemento(0).darPrimerdato(), 0);		
 		assertEquals( 2, ordenadoD.darElemento(1).darPrimerdato(), 0);
 		assertEquals( 3, desorden.darElemento(2).darPrimerdato(), 0);
 	}

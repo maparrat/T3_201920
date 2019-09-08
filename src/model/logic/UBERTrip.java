@@ -1,5 +1,8 @@
 package model.logic;
 
+/**
+ * Clase que representa un viaje en UBER
+ */
 public class UBERTrip implements Comparable<UBERTrip>
 {
 	private double[] datosViaje;
@@ -16,11 +19,16 @@ public class UBERTrip implements Comparable<UBERTrip>
 		datosViaje[6] = gsdtt;
 	}
 	
+	/**
+	 * Retorna los datos del viaje
+	 * @return los datos del viaje
+	 */
 	public double[] darDatosViaje()
 	{
 		return datosViaje;
 	}
 
+	@Override
 	public int compareTo(UBERTrip param)
 	{
 		if(datosViaje[3] > param.datosViaje[3])
@@ -44,6 +52,11 @@ public class UBERTrip implements Comparable<UBERTrip>
 		}		
 		return 0;
 	}
+	
+	/**
+	 * Retorna el dato de la ID de destino
+	 * @return la ID del destino
+	 */
 	public double darPrimerdato()
 	{
 		return datosViaje[1];

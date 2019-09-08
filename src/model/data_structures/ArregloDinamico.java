@@ -97,6 +97,16 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 	
 	public void cambiarElemento (T dato, int index)
 	{
+		if(elementos[index] == null && dato != null)
+		{
+			tamanoAct++;
+		}
+		
+		if(elementos[index] != null && dato == null)
+		{
+			tamanoAct--;
+		}
+		
 		elementos[index] = dato;
 	}
 
@@ -126,9 +136,9 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 	{
 		ArregloDinamico<T> respuesta = new ArregloDinamico<>(10);
 		
-		for (int i = tamanoAct; i > tamanoAct - 10 && i > 0; i--)
+		for (int i = tamanoAct - 1; i > tamanoAct - 11 && i >= 0; i--)
 		{
-			respuesta.cambiarElemento(elementos[i], 9 + i - tamanoAct);
+			respuesta.cambiarElemento(elementos[i], tamanoAct - i - 1);
 		}
 		
 		return respuesta;		
