@@ -47,5 +47,9 @@ public interface IArregloDinamico<T extends Comparable<T>> {
 
 	T darUltimoElemento();
 	
-	void cambiarElemento (T dato, int index);
+	void cambiarElemento(T dato, int index);
+	
+	ArregloDinamico<T> darPrimeros10Viajes();
+	
+	ArregloDinamico<T> darUltimos10Viajes();
 }

@@ -1,13 +1,7 @@
 package model.data_structures;
 
-/**
- * 2019-01-23
- * Estructura de Datos Arreglo Dinamico de Strings.
- * El arreglo al llenarse (llegar a su maxima capacidad) debe aumentar su capacidad.
- * @author Fernando De la Rosa
- *
- */
-public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamico<T> {
+public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamico<T>
+{
 	/**
 	 * Capacidad maxima del arreglo
 	 */
@@ -102,19 +96,42 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 		return buscado;
 	}
 	
-	public T darPrimerElemento()
-	{
-		return elementos[0];
-	}
-	
-	public T darUltimoElemento()
-	{
-		return elementos[darTamano()-1];
-	}
-	
 	public void cambiarElemento (T dato, int index)
 	{
 		elementos[index] = dato;
 	}
+
+	public T darPrimerElemento()
+	{
+		return elementos[0];
+	}
+
+	public T darUltimoElemento()
+	{
+		return elementos[darTamano()-1];
+	}
+
+	public ArregloDinamico<T> darPrimeros10Viajes()
+	{
+		ArregloDinamico<T> respuesta = new ArregloDinamico<>(10);
+		
+		for (int i = 0; i < 10 && i < tamanoAct; i++)
+		{
+			respuesta.cambiarElemento(elementos[i], i);
+		}
+		
+		return respuesta;		
+	}
 	
+	public ArregloDinamico<T> darUltimos10Viajes()
+	{
+		ArregloDinamico<T> respuesta = new ArregloDinamico<>(10);
+		
+		for (int i = tamanoAct; i > tamanoAct - 10 && i > 0; i--)
+		{
+			respuesta.cambiarElemento(elementos[i], 9 + i - tamanoAct);
+		}
+		
+		return respuesta;		
+	}
 }

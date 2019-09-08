@@ -44,7 +44,7 @@ public class UBERTrip implements Comparable<UBERTrip>
 		}		
 		return 0;
 	}
-	public double darPrimerdatos()
+	public double darPrimerdato()
 	{
 		return datosViaje[1];
 	}
