@@ -6,6 +6,8 @@ import model.logic.UBERTrip;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,15 +21,6 @@ public class TestMVCModelo
 	public void setUp1()
 	{
 		modelo= new MVCModelo();
-		
-		try
-		{
-			modelo.cargarArchivoCSV();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 
 		ordenadoA = new ArregloDinamico<UBERTrip>(3);
 		ordenadoD = new ArregloDinamico<UBERTrip>(3);
@@ -50,12 +43,17 @@ public class TestMVCModelo
 	}
 
 	@Test
-	public void testShelsort()
+	public void testShellsort()
 	{
 		modelo.ordenamientoAscendenteShellSort(ordenadoA);
 		modelo.ordenamientoAscendenteShellSort(ordenadoD);
 		modelo.ordenamientoAscendenteShellSort(desorden);
-		assertEquals( 0, ordenadoA.darElemento(0).darPrimerdato(), 0);
+		assertEquals( 1, ordenadoA.darElemento(0).darPrimerdato(), 0);
+		
+		System.out.println(ordenadoD.darElemento(0).darPrimerdato());
+		System.out.println(ordenadoD.darElemento(1).darPrimerdato());
+		System.out.println(ordenadoD.darElemento(2).darPrimerdato());
+		
 		assertEquals( 2, ordenadoD.darElemento(1).darPrimerdato(), 0);
 		assertEquals( 3, desorden.darElemento(2).darPrimerdato(), 0);
 	}
@@ -63,10 +61,10 @@ public class TestMVCModelo
 	@Test
 	public void testMergeSort()
 	{
-		modelo.ordenamientoAscendenteShellSort(ordenadoA);
-		modelo.ordenamientoAscendenteShellSort(ordenadoD);
-		modelo.ordenamientoAscendenteShellSort(desorden);
-		assertEquals( 0, ordenadoA.darElemento(0).darPrimerdato(), 0);
+		modelo.ordenamientoAscendenteMergeSort(ordenadoA);
+		modelo.ordenamientoAscendenteMergeSort(ordenadoD);
+		modelo.ordenamientoAscendenteMergeSort(desorden);
+		assertEquals( 1, ordenadoA.darElemento(0).darPrimerdato(), 0);
 		assertEquals( 2, ordenadoD.darElemento(1).darPrimerdato(), 0);
 		assertEquals( 3, desorden.darElemento(2).darPrimerdato(), 0);
 	}
@@ -74,10 +72,10 @@ public class TestMVCModelo
 	@Test
 	public void testQuicksort()
 	{
-		modelo.ordenamientoAscendenteShellSort(ordenadoA);
-		modelo.ordenamientoAscendenteShellSort(ordenadoD);
-		modelo.ordenamientoAscendenteShellSort(desorden);
-		assertEquals(0, ordenadoA.darElemento(0).darPrimerdato(), 0);
+		modelo.ordenamientoAscendenteQuickSort(ordenadoA);
+		modelo.ordenamientoAscendenteQuickSort(ordenadoD);
+		modelo.ordenamientoAscendenteQuickSort(desorden);
+		assertEquals(1, ordenadoA.darElemento(0).darPrimerdato(), 0);
 		assertEquals(2, ordenadoD.darElemento(1).darPrimerdato(), 0);
 		assertEquals(3, desorden.darElemento(2).darPrimerdato(), 0);
 	}
