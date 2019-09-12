@@ -94,12 +94,12 @@ public class MVCModelo {
 		boolean primeraLectura = true;
 
 		CSVReader reader = new CSVReader(new FileReader("data/bogota-cadastral-2018-2-All-HourlyAggregate.csv"));
-
+		
 		for(String[] line: reader)
 		{
 			if(!primeraLectura)
 			{
-				UBERTrip nuevo = new UBERTrip(Double.parseDouble(line[0]), Double.parseDouble(line[1]), Double.parseDouble(line[2]), Double.parseDouble(line[3]), Double.parseDouble(line[4]), Double.parseDouble(line[5]), Double.parseDouble(line[6])); 
+				UBERTrip nuevo = new UBERTrip(Short.parseShort(line[0]), Short.parseShort(line[1]), Short.parseShort(line[2]), Float.parseFloat(line[3]), Float.parseFloat(line[4]), Float.parseFloat(line[5]), Float.parseFloat(line[6])); 
 				datos.agregar(nuevo);
 			}
 			primeraLectura = false;

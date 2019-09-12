@@ -25,9 +25,9 @@ public class TestMVCModelo
 		ordenadoA = new ArregloDinamico<UBERTrip>(3);
 		ordenadoD = new ArregloDinamico<UBERTrip>(3);
 		desorden = new ArregloDinamico<UBERTrip>(3);
-		dato1 = new UBERTrip(1, 1, 1, 1, 1, 1, 1);
-		dato2 = new UBERTrip(2, 2, 2, 2, 2, 2 ,2);
-		dato3 = new UBERTrip(3, 3, 3, 3, 3, 3, 3);
+		dato1 = new UBERTrip((short)1, (short)1, (short)1, (float)1, (float)1, (float)1, (float)1);
+		dato2 = new UBERTrip((short)2, (short)2, (short)2, (float)2, (float)2, (float)2, (float)2);
+		dato3 = new UBERTrip((short)3, (short)3, (short)3, (float)3, (float)3, (float)3, (float)3);
 
 		ordenadoA.agregar(dato1);
 		ordenadoA.agregar(dato2);

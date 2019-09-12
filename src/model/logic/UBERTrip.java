@@ -5,18 +5,19 @@ package model.logic;
  */
 public class UBERTrip implements Comparable<UBERTrip>
 {
-	private double[] datosViaje;
+	private short sourceid, dstid, hod;
 	
-	public UBERTrip(double sourceid, double dstid, double hod, double mtt, double sdtt, double gmtt, double gsdtt)
+	private float mtt, sdtt, gmtt, gsdtt;
+	
+	public UBERTrip(short pSourceid, short pDstid, short pHod, float pMtt, float pSdtt, float pGmtt, float pGsdtt)
 	{
-	   datosViaje = new double[7];
-		datosViaje[0] = sourceid;
-		datosViaje[1] = dstid;
-		datosViaje[2] = hod;
-		datosViaje[3] = mtt;
-		datosViaje[4] = sdtt;
-		datosViaje[5] = gmtt;
-		datosViaje[6] = gsdtt;
+		sourceid = pSourceid;
+		dstid = pDstid;
+		hod = pHod;
+		mtt = pMtt;
+		sdtt = pSdtt;
+		gmtt = pGmtt;
+		gsdtt = pGsdtt;
 	}
 	
 	/**
@@ -25,27 +26,37 @@ public class UBERTrip implements Comparable<UBERTrip>
 	 */
 	public double[] darDatosViaje()
 	{
-		return datosViaje;
+		double[] respuesta = new double[7];
+
+		respuesta[0] = sourceid;
+		respuesta[1] = dstid;
+		respuesta[2] = hod;
+		respuesta[3] = mtt;
+		respuesta[4] = sdtt;
+		respuesta[5] = gmtt;
+		respuesta[6] = gsdtt;
+		
+		return respuesta;
 	}
 
 	@Override
 	public int compareTo(UBERTrip param)
 	{
-		if(datosViaje[3] > param.datosViaje[3])
+		if(mtt > param.mtt)
 		{
 			return 1;
 		}
-		else if(datosViaje[3] <  param.datosViaje[3])
+		else if(mtt <  param.mtt)
 		{
 			return -1;
 		}
 		else
 		{
-			if(datosViaje[4] > param.datosViaje[4])
+			if(sdtt > param.sdtt)
 			{
 				return 1;
 			}
-			else if(datosViaje[4] < param.datosViaje[4])
+			else if(sdtt < sdtt)
 			{
 				return -1;
 			}
@@ -59,6 +70,6 @@ public class UBERTrip implements Comparable<UBERTrip>
 	 */
 	public double darPrimerdato()
 	{
-		return datosViaje[1];
+		return dstid;
 	}
 }
